@@ -35,6 +35,18 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      // 如果地址以/api开头，它就会请求到 http://127.0.0.1
+      '/api': {
+        target: 'http://127.0.0.1:9000',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          // 重写请求路径
+          '^/api': '/'
+        }
+      }
     }
   },
   configureWebpack: {
