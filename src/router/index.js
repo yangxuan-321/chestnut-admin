@@ -56,6 +56,31 @@ export const constantRoutes = [
 // 将我们自己定义的组件放在asyncRoutes当中
 export const asyncRoutes = [
   {
+    path: '/user-manager',
+    name: '用户管理',
+    component: Layout,
+    // redirect:
+    meta: { title: '用户管理', icon: 'user', roles: ['admin']},
+    children: [
+      {
+        path: '/user-manager/create',
+        component: () => import('@/views/user-manager/create'),
+        meta: { title: '新增用户', icon: 'edit' }
+      },
+      {
+        path: '/user-manager/edit',
+        component: () => import('@/views/user-manager/edit'),
+        hidden: true,
+        meta: { title: '编辑用户', icon: 'list' }
+      },
+      {
+        path: '/user-manager/list',
+        component: () => import('@/views/user-manager/list'),
+        meta: { title: '用户列表', icon: 'list' }
+      }
+    ]
+  },
+  {
     path: '/flow-manager',
     name: '流程管理',
     component: Layout,
