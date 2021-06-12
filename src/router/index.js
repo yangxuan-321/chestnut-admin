@@ -60,7 +60,7 @@ export const asyncRoutes = [
     name: '用户管理',
     component: Layout,
     // redirect:
-    meta: { title: '用户管理', icon: 'user', roles: ['admin']},
+    meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
     children: [
       {
         path: '/user-manager/create',
