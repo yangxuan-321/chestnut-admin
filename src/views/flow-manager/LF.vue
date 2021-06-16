@@ -3,7 +3,7 @@
     <!-- <el-button>保存</el-button>-->
     <!-- <h3 class="demo-title">栗子工作流</h3> -->
     <el-dialog :visible="saveFlowFormShow" width="35%" @close="closeSaveFormDialog" style="margin-top: 50px;">
-      <SaveFlowForm v-bind:flowData="lf.getGraphData()" @flowFormSubmit="flowFormSubmit_" />
+      <SaveFlowForm v-bind:flowData="lf" @flowFormSubmit="flowFormSubmit_" />
     </el-dialog>
     <!-- 辅助工具栏 -->
     <Control

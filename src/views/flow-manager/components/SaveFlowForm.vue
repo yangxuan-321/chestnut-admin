@@ -20,7 +20,7 @@ export default {
   props: ['flowData'],
   data() {
     const validateFlowName = (rule, value, callback) => {
-      console.log("xxxx => ", this.flowData)
+      console.log("xxxx => ", this.flowData.getGraphData())
       // if (!validUsername(value)) {
       // 如果用户名为空 或者 用户名的长度为0
       if (!value || value.length === 0) {
