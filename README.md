@@ -1,2 +1,2 @@
 # chestnut-admin
-通用前端框架【vue-element-admin改造】
+使用【vue-element-admin】 +  【LogicFlow】做的工作流管理后端页面。
