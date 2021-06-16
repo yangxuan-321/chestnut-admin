@@ -1,12 +1,17 @@
 <template>
   <div class="logic-flow-view">
-    <h3 class="demo-title">栗子工作流</h3>
+    <!-- <el-button>保存</el-button>-->
+    <!-- <h3 class="demo-title">栗子工作流</h3> -->
+    <el-dialog :visible="saveFlowFormShow" width="35%" @close="closeSaveFormDialog">
+      <SaveFlowForm @flowFormSubmit="flowFormSubmit" />
+    </el-dialog>
     <!-- 辅助工具栏 -->
     <Control
       v-if="lf"
-      class="demo-control"
+      class="chestnut-control"
       :lf="lf"
       @catData="$_catData"
+      @saveFlow="$_saveFlow"
     />
     <!-- 节点面板 -->
     <NodePanel v-if="lf" :lf="lf" :node-list="nodeList" />
@@ -61,19 +66,21 @@ import { nodeList } from './config'
 
 import {
   registerStart,
-  registerUser,
+  // registerUser,
   registerSwitch,
   registerEnd,
-  registerPush,
-  registerDownload,
+  // registerPush,
+  // registerDownload,
   registerPolyline,
   registerTask
 } from '../../components/ChestnutFlow/registerNode'
-const demoData = require('./data.json')
+import SaveFlowForm from './components/SaveFlowForm'
+const demoData = require('./data/data.json')
+// const demoData2 = require('./data/data2.json')
 
 export default {
   name: 'LF',
-  components: { NodePanel, AddPanel, Control, PropertyDialog, DataDialog },
+  components: { SaveFlowForm, NodePanel, AddPanel, Control, PropertyDialog, DataDialog },
   data() {
     return {
       lf: null,
@@ -126,7 +133,8 @@ export default {
         }
       },
       moveData: {},
-      nodeList
+      nodeList,
+      saveFlowFormShow: false
     }
   },
   mounted() {
@@ -143,47 +151,6 @@ export default {
         { ...this.config, container: document.querySelector('#LF-view') }
       )
       this.lf = lf
-      // lf.setDefaultEdgeType('bpmn:sequenceFlow');
-      // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
-      // 重置，增加，节点自由配置(以user节点为示例)
-      // lf.setMenuConfig({
-      //   nodeMenu: [],
-      //   edgeMenu: []
-      // })
-      // lf.addMenuConfig({
-      //   nodeMenu: [
-      //     {
-      //       text: '分享',
-      //       callback () {
-      //         alert('分享成功！')
-      //       }
-      //     },
-      //     {
-      //       text: '属性',
-      //       callback (node) {
-      //         alert(`
-      //           节点id：${node.id}
-      //           节点类型：${node.type}
-      //           节点坐标：(x: ${node.x}, y: ${node.y})`
-      //         )
-      //       }
-      //     }
-      //   ],
-      //   edgeMenu: [
-      //     {
-      //       text: '属性',
-      //       callback (edge) {
-      //         alert(`
-      //           边id：${edge.id}
-      //           边类型：${edge.type}
-      //           边坐标：(x: ${edge.x}, y: ${edge.y})
-      //           源节点id：${edge.sourceNodeId}
-      //           目标节点id：${edge.targetNodeId}`
-      //         )
-      //       }
-      //     }
-      //   ]
-      // })
       // 设置主题
       lf.setTheme({
         circle: {
@@ -224,11 +191,11 @@ export default {
     // 自定义
     $_registerNode() {
       registerStart(this.lf)
-      registerUser(this.lf)
+      // registerUser(this.lf)
       registerSwitch(this.lf) // 注册该自定义的组件，基本就可以将该组件 拖拽到画布上
       registerEnd(this.lf)
-      registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
-      registerDownload(this.lf)
+      // registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
+      // registerDownload(this.lf)
       registerPolyline(this.lf)
       registerTask(this.lf)
       this.$_render()
@@ -302,13 +269,31 @@ export default {
       this.$data.graphData = this.$data.lf.getGraphData()
       this.$data.dataVisible = true
     },
-    goto() {
-      this.$router.push('/TurboAdpter')
+    /* eslint-disable */
+    $_saveFlow() {
+      // this.lf.render(demoData2)
+      this.saveFlowFormShow = true
+    },
+    closeSaveFormDialog() {
+      this.saveFlowFormShow = false
+    },
+    flowFormSubmit() {
+      console.log("提交保存流程请求", this.lf.getGraphData())
+      this.saveFlowFormShow = false
     }
   }
 }
 </script>
 <style>
+#LF-view{
+  /*width: calc(100% - 100px);*/
+  width: calc(100% - 20px);
+  /*height: 80%;*/
+  height: 100%;
+  outline: none;
+  /*margin-left: 50px;*/
+  margin-left: 10px;
+}
 .logic-flow-view {
   height: 100vh;
   position: relative;
@@ -317,17 +302,11 @@ export default {
   text-align: center;
   margin: 20px;
 }
-.demo-control{
+.chestnut-control{
   position: absolute;
-  top: 50px;
-  right: 50px;
+  top: 20px;
+  right: 20px;
   z-index: 2;
-}
-#LF-view{
-  width: calc(100% - 100px);
-  height: 80%;
-  outline: none;
-  margin-left: 50px;
 }
 .time-plus{
   cursor: pointer;
