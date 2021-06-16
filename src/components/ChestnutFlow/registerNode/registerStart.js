@@ -17,7 +17,7 @@ export default function registerStart(lf) {
             width: 50,
             height: 25
           },
-          'Start'
+          '开始'
         )
       }
       getShape() {

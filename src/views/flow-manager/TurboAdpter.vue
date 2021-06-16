@@ -1,6 +1,6 @@
 <template>
   <div class="logic-flow-view">
-    <h3 class="demo-title">LogicFlow Turbo Adpter</h3>
+    <h3 class="demo-title">栗子工作流</h3>
     <!-- 辅助工具栏 -->
     <Control
       v-if="lf"
@@ -22,9 +22,6 @@
     >
       <DataDialog :graph-data="graphData" />
     </el-dialog>
-    <h4>更多示例：
-      <el-button type="text" @click="goto">LogicFlow</el-button>
-    </h4>
   </div>
 </template>
 <script>
@@ -32,9 +29,9 @@ import LogicFlow from '@logicflow/core'
 import { Snapshot, BpmnElement } from '@logicflow/extension'
 import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'
-import NodePanel from './LFComponents/NodePanel'
-import Control from './LFComponents/Control'
-import DataDialog from './LFComponents/DataDialog'
+import NodePanel from '../../components/ChestnutFlow/LFComponents/NodePanel'
+import Control from '../../components/ChestnutFlow/LFComponents/Control'
+import DataDialog from '../../components/ChestnutFlow/LFComponents/DataDialog'
 import { toTurboData, toLogicflowData } from './AdpterForTurbo'
 import { BpmnNode } from './config'
 const demoData = require('./dataTurbo.json')
@@ -69,7 +66,9 @@ export default {
       LogicFlow.use(Snapshot)
       // 使用bpmn插件，引入bpmn元素，这些元素可以在turbo中转换后使用
       LogicFlow.use(BpmnElement)
-      const lf = new LogicFlow({ ...this.config, container: document.querySelector('#LF-Turbo') })
+      const lf = new LogicFlow(
+        { ...this.config, container: document.querySelector('#LF-Turbo') }
+      )
       this.lf = lf
       // 设置边类型bpmn:sequenceFlow为默认类型
       lf.setDefaultEdgeType('bpmn:sequenceFlow')
@@ -92,9 +91,6 @@ export default {
       // 数据转化为Turbo识别的数据结构
       this.$data.graphData = toTurboData(graphData)
       this.$data.dataVisible = true
-    },
-    goto() {
-      this.$router.push('/')
     }
   }
 }

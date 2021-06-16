@@ -1,6 +1,6 @@
 <template>
   <div class="logic-flow-view">
-    <h3 class="demo-title">LogicFlow Vue demo</h3>
+    <h3 class="demo-title">栗子工作流</h3>
     <!-- 辅助工具栏 -->
     <Control
       v-if="lf"
@@ -44,9 +44,6 @@
     >
       <DataDialog :graph-data="graphData" />
     </el-dialog>
-    <h4>更多示例：
-      <el-button type="text" @click="goto">BpmnElement & TurboAdpter</el-button>
-    </h4>
   </div>
 </template>
 <script>
@@ -55,22 +52,23 @@ import LogicFlow from '@logicflow/core'
 import { Menu, Snapshot } from '@logicflow/extension'
 import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'
-import NodePanel from './LFComponents/NodePanel'
-import AddPanel from './LFComponents/AddPanel'
-import Control from './LFComponents/Control'
-import PropertyDialog from './PropertySetting/PropertyDialog'
-import DataDialog from './LFComponents/DataDialog'
+import NodePanel from '../../components/ChestnutFlow/LFComponents/NodePanel'
+import AddPanel from '../../components/ChestnutFlow/LFComponents/AddPanel'
+import Control from '../../components/ChestnutFlow/LFComponents/Control'
+import PropertyDialog from '../../components/ChestnutFlow/PropertySetting/PropertyDialog'
+import DataDialog from '../../components/ChestnutFlow/LFComponents/DataDialog'
 import { nodeList } from './config'
 
 import {
   registerStart,
   registerUser,
+  registerSwitch,
   registerEnd,
   registerPush,
   registerDownload,
   registerPolyline,
   registerTask
-} from './registerNode'
+} from '../../components/ChestnutFlow/registerNode'
 const demoData = require('./data.json')
 
 export default {
@@ -96,7 +94,8 @@ export default {
         },
         grid: {
           size: 10,
-          visible: false
+          // visible: false
+          visible: true
         },
         keyboard: {
           enabled: true
@@ -140,7 +139,9 @@ export default {
       // 使用插件
       LogicFlow.use(Menu)
       LogicFlow.use(Snapshot)
-      const lf = new LogicFlow({ ...this.config, container: document.querySelector('#LF-view') })
+      const lf = new LogicFlow(
+        { ...this.config, container: document.querySelector('#LF-view') }
+      )
       this.lf = lf
       // lf.setDefaultEdgeType('bpmn:sequenceFlow');
       // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
@@ -193,7 +194,10 @@ export default {
         },
         rect: {
           outlineColor: '#88f',
-          strokeWidth: 1
+          strokeWidth: 1,
+          radius: 10
+          // width: 90,
+          // height: 60
         },
         polygon: {
           strokeWidth: 1
@@ -206,10 +210,10 @@ export default {
           strokeWidth: 1
         },
         nodeText: {
-          color: '#000000'
+          color: '#000000' // 节点文本内容颜色
         },
         edgeText: {
-          color: '#000000',
+          color: '#000000', // 节点之间连线的颜色
           background: {
             fill: '#f7f9ff'
           }
@@ -221,6 +225,7 @@ export default {
     $_registerNode() {
       registerStart(this.lf)
       registerUser(this.lf)
+      registerSwitch(this.lf) // 注册该自定义的组件，基本就可以将该组件 拖拽到画布上
       registerEnd(this.lf)
       registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
       registerDownload(this.lf)

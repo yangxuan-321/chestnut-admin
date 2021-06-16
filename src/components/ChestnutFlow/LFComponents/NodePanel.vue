@@ -63,8 +63,15 @@ export default {
 .node-rect{
   border: 1px solid black;
 }
+.node-task{
+  border: 3px solid black;
+}
 .node-user{
   background: url('../background/user.png') no-repeat;
+  background-size: cover;
+}
+.node-switch{
+  background: url('../background/switch.png') no-repeat;
   background-size: cover;
 }
 .node-time{

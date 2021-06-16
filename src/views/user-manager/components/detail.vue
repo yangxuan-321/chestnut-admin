@@ -1,5 +1,5 @@
 <template>
-  <div>detail: {{isEdit}}</div>
+  <div>detail: {{ isEdit }}</div>
 </template>
 
 <script>

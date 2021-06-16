@@ -5,28 +5,33 @@ export const nodeList = [
     class: 'node-start'
   },
   {
-    text: '矩形',
+    text: '基础节点',
     type: 'rect',
-    class: 'node-rect'
+    class: 'node-task'
   },
+  // {
+  //   text: '用户',
+  //   type: 'user',
+  //   class: 'node-user'
+  // },
   {
-    type: 'user',
-    text: '用户',
-    class: 'node-user'
+    text: '判断',
+    type: 'switch',
+    class: 'node-switch'
   },
+  // {
+  //   text: '推送',
+  //   type: 'push',
+  //   class: 'node-push'
+  // },
+  // {
+  //   text: '位置',
+  //   type: 'download',
+  //   class: 'node-download'
+  // },
   {
-    type: 'push',
-    text: '推送',
-    class: 'node-push'
-  },
-  {
-    type: 'download',
-    text: '位置',
-    class: 'node-download'
-  },
-  {
-    type: 'end',
     text: '结束',
+    type: 'end',
     class: 'node-end'
   }
 ]

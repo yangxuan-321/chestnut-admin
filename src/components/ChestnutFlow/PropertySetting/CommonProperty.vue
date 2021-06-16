@@ -1,21 +1,14 @@
 <template>
   <div>
     <el-form label-width="80px" :model="formData">
-      <el-form-item label="文案">
+      <el-form-item label="标签">
         <el-input v-model="formData.text" />
       </el-form-item>
-      <el-form-item label="名称">
-        <el-input v-model="formData.name" />
-      </el-form-item>
-      <el-form-item label="活动区域">
-        <el-input v-model="formData.region" />
-      </el-form-item>
-      <el-form-item label="活动形式">
-        <el-input v-model="formData.type" />
-      </el-form-item>
-      <el-form-item label="A">
-        <el-input v-model="formData.a.a1" />
-        <el-input v-model="formData.a.a2" />
+      <el-form-item label="脚本">
+        <el-select v-model="formData.script.type" placeholder="请选择">
+          <el-option v-for="item in labelList" :key="item.value" :value="item.value" :label="item.label" />
+        </el-select>
+        <el-input v-model="formData.script.content" type="textarea" :rows="8" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -41,8 +34,26 @@ export default {
         a: {
           a1: '',
           a2: ''
+        },
+        script: {
+          type: 0,
+          content: ''
         }
-      }
+      },
+      labelList: [
+        {
+          value: 0,
+          label: 'JavaScript'
+        },
+        {
+          value: 1,
+          label: 'Scala'
+        },
+        {
+          value: 2,
+          label: 'Java'
+        }
+      ]
     }
   },
   mounted() {
