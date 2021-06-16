@@ -2,8 +2,8 @@
   <div class="logic-flow-view">
     <!-- <el-button>保存</el-button>-->
     <!-- <h3 class="demo-title">栗子工作流</h3> -->
-    <el-dialog :visible="saveFlowFormShow" width="35%" @close="closeSaveFormDialog">
-      <SaveFlowForm @flowFormSubmit="flowFormSubmit" />
+    <el-dialog :visible="saveFlowFormShow" width="35%" @close="closeSaveFormDialog" style="margin-top: 50px;">
+      <SaveFlowForm v-bind:flowData="lf.getGraphData()" @flowFormSubmit="flowFormSubmit_" />
     </el-dialog>
     <!-- 辅助工具栏 -->
     <Control
@@ -277,8 +277,14 @@ export default {
     closeSaveFormDialog() {
       this.saveFlowFormShow = false
     },
-    flowFormSubmit() {
-      console.log("提交保存流程请求", this.lf.getGraphData())
+    flowFormSubmit_(flowForm) {
+      const flowData = this.lf.getGraphData()
+      const data = {
+        metaData: flowForm,
+        flowData: flowData
+      }
+      // console.log("提交保存流程请求", data)
+
       this.saveFlowFormShow = false
     }
   }
