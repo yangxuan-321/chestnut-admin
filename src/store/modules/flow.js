@@ -1,16 +1,13 @@
-import { setToken } from '@/utils/auth'
-import { flowManagerSave } from '@/api/flow'
+/* eslint-disable */
+import {flowManagerSave} from "@/api/flow";
 
 const actions = {
-  // user login
-  flowManagerSave({ commit }, userInfo) {
-    const { username, password } = userInfo
+  // save flow
+  flowManagerSave({ commit }, flow) {
+    console.log("保存流程请求提交...", flow)
     return new Promise((resolve, reject) => {
-      flowManagerSave({ username: username.trim(), password: password }).then(response => {
+      flowManagerSave(flow).then(response => {
         const { data } = response
-        console.log(data)
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
         resolve()
       }).catch(error => {
         reject(error)

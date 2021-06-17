@@ -20,7 +20,7 @@ export default {
   props: ['flowData'],
   data() {
     const validateFlowName = (rule, value, callback) => {
-      console.log("xxxx => ", this.flowData.getGraphData())
+      // console.log("xxxx => ", this.flowData.getGraphData())
       // if (!validUsername(value)) {
       // 如果用户名为空 或者 用户名的长度为0
       if (!value || value.length === 0) {
@@ -53,7 +53,11 @@ export default {
       this.$refs.flowForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('flow/flowManagerSave', this.loginForm)
+          const data = {
+            metaData: this.flowForm,
+            flowData: this.flowData.getGraphData()
+          }
+          this.$store.dispatch('flow/flowManagerSave', data)
             .then(() => {
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false

@@ -1,13 +1,13 @@
 <template>
   <div class="property-dialog">
-    <User
+    <!-- <User
       v-if="nodeData.type === 'user'"
       :node-data="nodeData"
       :lf="lf"
       @onClose="handleClose"
-    />
+    /> -->
+
     <CommonProperty
-      v-else
       :node-data="nodeData"
       :lf="lf"
       @onClose="handleClose"
@@ -16,13 +16,13 @@
 </template>
 <script>
 import CommonProperty from './CommonProperty'
-import User from './User.vue'
-
+// import User from './User.vue'
+/* eslint-disable */
 export default {
   name: 'PropertyDialog',
   components: {
-    CommonProperty,
-    User
+    CommonProperty
+    // , User
   },
   props: {
     nodeData: Object,

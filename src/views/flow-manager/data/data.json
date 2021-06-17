@@ -53,14 +53,7 @@
       "x": 730,
       "y": 120,
       "properties": {
-        "text": "客流类型1",
-        "name": "",
-        "region": "",
-        "type": "",
-        "a": {
-          "a1": "",
-          "a2": ""
-        },
+        "desc": "客流类型1",
         "script": {
           "type": 0,
           "content": ""
@@ -78,14 +71,7 @@
       "x": 730,
       "y": 240,
       "properties": {
-        "text": "客流类型2",
-        "name": "",
-        "region": "",
-        "type": "",
-        "a": {
-          "a1": "",
-          "a2": ""
-        },
+        "desc": "客流类型2",
         "script": {
           "type": 0,
           "content": ""
@@ -103,14 +89,7 @@
       "x": 730,
       "y": 360,
       "properties": {
-        "text": "客流类型3",
-        "name": "",
-        "region": "",
-        "type": "",
-        "a": {
-          "a1": "",
-          "a2": ""
-        },
+        "desc": "客流类型3",
         "script": {
           "type": 0,
           "content": ""
@@ -128,14 +107,7 @@
       "x": 940,
       "y": 240,
       "properties": {
-        "text": "归档备份文件",
-        "name": "",
-        "region": "",
-        "type": "",
-        "a": {
-          "a1": "",
-          "a2": ""
-        },
+        "desc": "归档备份文件",
         "script": {
           "type": 0,
           "content": ""
