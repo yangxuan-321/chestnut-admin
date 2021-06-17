@@ -4,7 +4,7 @@
       <el-form-item label="描述">
         <el-input v-model="formData.desc" />
       </el-form-item>
-      <el-form-item v-if="this.judgePolylineType()" label="脚本">
+      <el-form-item v-if="judgeScriptType()" label="脚本">
         <el-select v-model="formData.script.type" placeholder="请选择">
           <el-option v-for="item in labelList" :key="item.value" :value="item.value" :label="item.label" />
         </el-select>
@@ -68,8 +68,9 @@ export default {
       this.$props.lf.updateText(id, this.$data.formData.text)
       this.$emit('onClose')
     },
-    // 判断是不是从分支出来的线 || 普通节点
-    judgePolylineType() {
+    // 判断是否需要显示script
+    // 判断是不是从分支出来的线 || 普通节点-非开始节点和终止节点
+    judgeScriptType() {
       // console.log("hello: ", this.nodeData)
       const nodeList = this.lf.getGraphData().nodes
       // console.log("world: ", nodeList)
@@ -79,6 +80,8 @@ export default {
         const sourceNode = nodeList.find(n => n.id === this.nodeData.sourceNodeId)
         // console.log("node: ", sourceNode)
         return sourceNode && sourceNode.type === 'switch'
+      } else if (nodeType === 'start' || nodeType === 'end') {
+        return false
       } else return true
     }
   }

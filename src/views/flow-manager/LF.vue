@@ -210,7 +210,7 @@ export default {
     },
     $_LfEvent() {
       this.lf.on('node:click', ({ data }) => {
-        console.log('node:click', data)
+        // console.log('node:click', data)
         this.$data.clickNode = data
         this.$data.dialogVisible = true
       })

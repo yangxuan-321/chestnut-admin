@@ -8,7 +8,9 @@
         <el-input v-model="flowForm.flowVersion" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width:30%; margin-left: 25%; margin-top: 10px;" @click="onSubmit">保存</el-button>
+        <el-button type="primary" style="width:30%; margin-left: 25%; margin-top: 10px;" :loading="loading" @click="onSubmit">
+          保存
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -30,7 +32,7 @@ export default {
       }
     }
     const validateFlowVersion = (rule, value, callback) => {
-      if (value.length < 4) {
+      if (value.length === 0) {
         callback(new Error('请输入正确的版本号'))
       } else {
         callback()
@@ -44,7 +46,8 @@ export default {
       saveFlowRules: {
         flowName: [{ required: true, trigger: 'blur', validator: validateFlowName }],
         flowVersion: [{ required: true, trigger: 'blur', validator: validateFlowVersion }]
-      }
+      },
+      loading: false
     }
   },
   /* eslint-disable */
@@ -58,19 +61,37 @@ export default {
             flowData: this.flowData.getGraphData()
           }
           this.$store.dispatch('flow/flowManagerSave', data)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
+            .then(res =>
+              this.onSubmitSuccess(res)
+            )
+            .catch(res =>
+              this.onSubmitFail(res)
+            )
         } else {
           console.log('error submit!!')
           return false
         }
       })
       // this.$emit("flowFormSubmit", this.flowForm)
+    },
+    onSubmitSuccess(res) {
+      // console.log("返回了:", res)
+      this.$message({
+        message: '保存成功',
+        type: 'success',
+      })
+      this.loading = false
+      this.$emit('flowFormSubmit')
+      this.flowForm.flowName = ''
+      this.flowForm.flowVersion = ''
+    },
+    onSubmitFail(res) {
+      // this.$emit('flowFormSubmit')
+      // this.$message({
+      //   message: "保存失败:" + (res.message || ""),
+      //   type: "error"
+      // })
+      this.loading = false
     }
   }
 }
