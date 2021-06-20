@@ -88,6 +88,9 @@ export default {
     }
   }
 }
+
+export class Pagination {
+}
 </script>
 
 <style scoped>

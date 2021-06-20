@@ -79,7 +79,7 @@ const demoData = require('./data/data.json')
 // const demoData2 = require('./data/data2.json')
 
 export default {
-  name: 'LF',
+  name: 'Create',
   components: { SaveFlowForm, NodePanel, AddPanel, Control, PropertyDialog, DataDialog },
   data() {
     return {

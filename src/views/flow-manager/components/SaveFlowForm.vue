@@ -5,7 +5,7 @@
         <el-input v-model="flowForm.flowName" />
       </el-form-item>
       <el-form-item label="版本" prop="flowVersion">
-        <el-input v-model="flowForm.flowVersion" />
+        <el-input v-model="flowForm.flowVersion" disabled />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="width:30%; margin-left: 25%; margin-top: 10px;" :loading="loading" @click="onSubmit">
@@ -28,7 +28,16 @@ export default {
       if (!value || value.length === 0) {
         callback(new Error('请输入正确流程名称'))
       } else {
-        callback()
+        console.log("xxxxxxxxxxx1")
+        this.$store.dispatch('flow/validateFlowName', value)
+          .then(res => { // 成功
+              callback()
+            }
+          )
+          .catch(res =>
+            // 失败
+            callback(new Error('请输入正确流程名称'))
+          )
       }
     }
     const validateFlowVersion = (rule, value, callback) => {
@@ -41,7 +50,7 @@ export default {
     return {
       flowForm: {
         flowName: '',
-        flowVersion: ''
+        flowVersion: 'v1.0'
       },
       saveFlowRules: {
         flowName: [{ required: true, trigger: 'blur', validator: validateFlowName }],

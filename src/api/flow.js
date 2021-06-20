@@ -7,3 +7,10 @@ export function flowManagerSave(data) {
     data
   })
 }
+
+export function validateFlowName(flowName) {
+  return request({
+    url: '/v1/flow/manager/validateFlowName/' + flowName,
+    method: 'get'
+  })
+}
