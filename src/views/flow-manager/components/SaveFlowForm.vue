@@ -28,7 +28,7 @@ export default {
       if (!value || value.length === 0) {
         callback(new Error('请输入正确流程名称'))
       } else {
-        console.log("xxxxxxxxxxx1")
+        // console.log("xxxxxxxxxxx1")
         this.$store.dispatch('flow/validateFlowName', value)
           .then(res => { // 成功
               callback()

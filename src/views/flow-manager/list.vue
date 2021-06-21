@@ -24,6 +24,14 @@
         placeholder="结束日期"
         :picker-options="listQuery.pickerOptionsEnd"
       />
+      <el-checkbox
+        v-model="listQuery.showVersion"
+        class="filter-item"
+        style="margin-left: 1%"
+        @change="changeShowVersion"
+      >
+        显示版本
+      </el-checkbox>
       <el-button
         v-waves
         class="filter-item"
@@ -44,7 +52,16 @@
         新增
       </el-button>
     </div>
-    <el-table />
+    <el-table
+      :key="tableKey"
+      v-loading="listLoading"
+      :data="templateList"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%"
+      @sort-change="sortChange"
+    />
     <pagination :total="100" />
   </div>
 </template>
@@ -59,8 +76,12 @@ export default {
   directives: { waves },
   data() {
     return {
+      // tableKey为了区分有多个table时候
+      tableKey: 0,
+      listLoading: false,
       listQuery: {
-        name: 'yangxuan',
+        flowName: '',
+        showVersion: '',
         startDate: '',
         endDate: '',
         // 开始结束日期限制
@@ -81,7 +102,8 @@ export default {
             return time.getTime() > new Date() || (this.listQuery.startDate && this.listQuery.startDate > time.getTime)
           }
         }
-      }
+      },
+      templateList: []
     }
   },
   methods: {
@@ -90,6 +112,13 @@ export default {
     },
     handleCreate() {
       this.$router.push('/flow-manager/create')
+    },
+    sortChange(data) {
+      console.log('sort......', data)
+    },
+    changeShowVersion(value) {
+      console.log('changeShowVersion......', value)
+      this.listQuery.showVersion = value
     }
   }
 }
