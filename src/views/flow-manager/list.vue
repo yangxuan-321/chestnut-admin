@@ -15,14 +15,14 @@
         v-model="listQuery.startDate"
         type="date"
         placeholder="开始日期"
-        :picker-options="listQuery.pickerOptionsStart"
+        :picker-options="dateLimit.pickerOptionsStart"
       />
       <span> 至 </span>
       <el-date-picker
         v-model="listQuery.endDate"
         type="date"
         placeholder="结束日期"
-        :picker-options="listQuery.pickerOptionsEnd"
+        :picker-options="dateLimit.pickerOptionsEnd"
       />
       <el-checkbox
         v-model="listQuery.showVersion"
@@ -61,7 +61,24 @@
       highlight-current-row
       style="width: 100%"
       @sort-change="sortChange"
-    />
+    >
+      <el-table-column
+        label="ID"
+        prop="id"
+        sortable="custom"
+        align="center"
+        width="80"
+      />
+      <el-table-column
+        label="流程名称"
+        width="150"
+        align="center"
+      >
+        <template slot-scope="{row: {flowName}}">
+          <span>{{ flowName }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
     <pagination :total="100" />
   </div>
 </template>
@@ -70,6 +87,7 @@
 
 import Pagination from '../../components/Pagination/index'
 import waves from '../../directive/waves/index'
+import { listFlow } from '@/api/flow'
 
 export default {
   components: { Pagination },
@@ -81,9 +99,11 @@ export default {
       listLoading: false,
       listQuery: {
         flowName: '',
-        showVersion: '',
+        showVersion: false,
         startDate: '',
-        endDate: '',
+        endDate: ''
+      },
+      dateLimit: {
         // 开始结束日期限制
         pickerOptionsStart: {
           disabledDate: time => {
@@ -106,9 +126,12 @@ export default {
       templateList: []
     }
   },
+  mounted() {
+    this.getList()
+  },
   methods: {
     handleFilter() {
-      // console.log('xxxxxxxx')
+      this.getList()
     },
     handleCreate() {
       this.$router.push('/flow-manager/create')
@@ -119,6 +142,25 @@ export default {
     changeShowVersion(value) {
       console.log('changeShowVersion......', value)
       this.listQuery.showVersion = value
+    },
+    getList() {
+      this.listLoading = true
+      const listQueryDropNull = this.copyDropStringNull(this.listQuery)
+      listFlow(listQueryDropNull).then(res => {
+
+      })
+    },
+    copyDropStringNull(obj) {
+      const nObj = {}
+      Object.keys(obj).forEach(item => {
+        if (this.isStringType(obj[item])) {
+          if (obj[item]) nObj[item] = obj[item]
+        } else nObj[item] = obj[item]
+      })
+      return nObj
+    },
+    isStringType(obj) {
+      return typeof obj === 'string'
     }
   }
 }

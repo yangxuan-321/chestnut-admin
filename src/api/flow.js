@@ -14,3 +14,11 @@ export function validateFlowName(flowName) {
     method: 'get'
   })
 }
+
+export function listFlow(data) {
+  return request({
+    url: '/v1/flow/manager/list',
+    method: 'post',
+    data
+  })
+}
