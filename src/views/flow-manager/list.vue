@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <el-dialog :visible="flowDetailShow" width="35%" style="margin-top: 50px;" @close="closeShowFlowDetailDialog">
+      <FlowDetail :detail-template-id="detailTemplateId" />
+    </el-dialog>
     <div class="filter-container">
       <el-input
         v-model="listQuery.flowName"
@@ -73,7 +76,17 @@
       />
       <el-table-column
         label="流程名称"
-        width="200"
+        width="399"
+        align="center"
+      >
+        <template slot-scope="{row: {name}}">
+          <span>{{ name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        v-if="listQuery.showVersion"
+        label="流程版本"
+        width="150"
         align="center"
       >
         <template slot-scope="{row: {name}}">
@@ -103,8 +116,8 @@
         width="200"
         align="center"
       >
-        <template slot-scope="{row: {createAt}}">
-          <span>{{ createAt }}</span>
+        <template slot-scope="{row: {createdAt}}">
+          <span>{{ createdAt }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -116,10 +129,12 @@
           <span>{{ updatedAt }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="320">
-        <el-button type="text" @click="checkDetail(scope.row.phone)">查看详情</el-button>
-        <el-button type="info" @click="modifyUser(scope.row.phone)">修改</el-button>
-        <el-button type="info" @click="deleteUser(scope.row.phone)">删除</el-button>
+      <el-table-column label="操作" align="center" width="320" fixed="right">
+        <template slot-scope="{row}">
+          <el-button type="text" @click="showFlowDetail(row.id)">查看详情</el-button>
+          <el-button type="info" @click="modifyFlow(row.id)">修改</el-button>
+          <el-button type="info" @click="deleteFlow(row.id)">删除</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <pagination :total="100" />
@@ -130,11 +145,12 @@
 
 import Pagination from '../../components/Pagination/index'
 import waves from '../../directive/waves/index'
+import FlowDetail from './components/FlowDetail'
 import { listFlow } from '@/api/flow'
 import { nowDatePlusDayStr, nowDateStr } from '@/utils/date-time'
 
 export default {
-  components: { Pagination },
+  components: { Pagination, FlowDetail },
   directives: { waves },
   data() {
     return {
@@ -167,7 +183,9 @@ export default {
           }
         }
       },
-      templateList: []
+      templateList: [],
+      detailTemplateId: 0,
+      flowDetailShow: false
     }
   },
   mounted() {
@@ -194,6 +212,9 @@ export default {
         // console.log('响应:', res.data)
         this.templateList = res.data
         this.listLoading = false
+      }).catch(err => {
+        console.log(err)
+        this.listLoading = false
       })
     },
     copyDropStringNull(obj) {
@@ -207,6 +228,21 @@ export default {
     },
     isStringType(obj) {
       return typeof obj === 'string'
+    },
+    showFlowDetail(id) {
+      console.log('show detail:', id)
+      // this.$router.push(`/flow-manager/detail/:${id}`)
+      this.detailTemplateId = id
+      this.flowDetailShow = true
+    },
+    modifyFlow(id) {
+      console.log('modify flow:', id)
+    },
+    deleteFlow(id) {
+      console.log('delete flow:', id)
+    },
+    closeShowFlowDetailDialog() {
+      this.flowDetailShow = false
     }
   }
 }

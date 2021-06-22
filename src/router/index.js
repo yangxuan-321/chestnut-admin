@@ -13,7 +13,8 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: '/redirect/:path(.*)',
+        // path: '/redirect/:path(.*)',
+        path: '/redirect/:path*', // 为了携带参数
         component: () => import('@/views/redirect/index')
       }
     ]
@@ -97,6 +98,12 @@ export const asyncRoutes = [
         component: () => import('@/views/flow-manager/list'),
         meta: { title: '流程列表', icon: 'list' }
       }
+      // ,{
+      //   path: '/flow-manager/detail/:id',
+      //   component: () => import('@/views/flow-manager/components/FlowDetail'),
+      //   hidden: true,
+      //   meta: { title: '详细流程', icon: 'edit' }
+      // }
     ]
   },
   { path: '*', redirect: '/404', hidden: true }
