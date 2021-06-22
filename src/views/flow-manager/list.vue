@@ -16,6 +16,7 @@
         type="date"
         placeholder="开始日期"
         :picker-options="dateLimit.pickerOptionsStart"
+        value-format="yyyy-MM-dd"
       />
       <span> 至 </span>
       <el-date-picker
@@ -23,6 +24,7 @@
         type="date"
         placeholder="结束日期"
         :picker-options="dateLimit.pickerOptionsEnd"
+        value-format="yyyy-MM-dd"
       />
       <el-checkbox
         v-model="listQuery.showVersion"
@@ -67,16 +69,57 @@
         prop="id"
         sortable="custom"
         align="center"
-        width="80"
+        width="100"
       />
       <el-table-column
         label="流程名称"
-        width="150"
+        width="200"
         align="center"
       >
-        <template slot-scope="{row: {flowName}}">
-          <span>{{ flowName }}</span>
+        <template slot-scope="{row: {name}}">
+          <span>{{ name }}</span>
         </template>
+      </el-table-column>
+      <el-table-column
+        label="创建者"
+        width="200"
+        align="center"
+      >
+        <template slot-scope="{row: {createUserName}}">
+          <span>{{ createUserName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="更新者"
+        width="200"
+        align="center"
+      >
+        <template slot-scope="{row: {updateUserName}}">
+          <span>{{ updateUserName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="创建时间"
+        width="200"
+        align="center"
+      >
+        <template slot-scope="{row: {createAt}}">
+          <span>{{ createAt }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="更新时间"
+        width="200"
+        align="center"
+      >
+        <template slot-scope="{row: {updatedAt}}">
+          <span>{{ updatedAt }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" width="320">
+        <el-button type="text" @click="checkDetail(scope.row.phone)">查看详情</el-button>
+        <el-button type="info" @click="modifyUser(scope.row.phone)">修改</el-button>
+        <el-button type="info" @click="deleteUser(scope.row.phone)">删除</el-button>
       </el-table-column>
     </el-table>
     <pagination :total="100" />
@@ -88,6 +131,7 @@
 import Pagination from '../../components/Pagination/index'
 import waves from '../../directive/waves/index'
 import { listFlow } from '@/api/flow'
+import { nowDatePlusDayStr, nowDateStr } from '@/utils/date-time'
 
 export default {
   components: { Pagination },
@@ -100,8 +144,8 @@ export default {
       listQuery: {
         flowName: '',
         showVersion: false,
-        startDate: '',
-        endDate: ''
+        startDate: nowDatePlusDayStr(-7),
+        endDate: nowDateStr()
       },
       dateLimit: {
         // 开始结束日期限制
@@ -147,7 +191,9 @@ export default {
       this.listLoading = true
       const listQueryDropNull = this.copyDropStringNull(this.listQuery)
       listFlow(listQueryDropNull).then(res => {
-
+        // console.log('响应:', res.data)
+        this.templateList = res.data
+        this.listLoading = false
       })
     },
     copyDropStringNull(obj) {
