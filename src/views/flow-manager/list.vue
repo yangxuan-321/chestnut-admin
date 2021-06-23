@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-dialog :visible="flowDetailShow" width="35%" style="margin-top: 50px;" @close="closeShowFlowDetailDialog">
-      <FlowDetail :detail-template-id="detailTemplateId" />
+    <el-dialog :visible="isFlowDetailShow" width="90%" style="margin-top: 0px;" @close="closeShowFlowDetailDialog">
+      <FlowDetail :flow-data="flowData" :template-flow-data-list="flowDatas" />
     </el-dialog>
     <div class="filter-container">
       <el-input
@@ -146,7 +146,7 @@
 import Pagination from '../../components/Pagination/index'
 import waves from '../../directive/waves/index'
 import FlowDetail from './components/FlowDetail'
-import { listFlow } from '@/api/flow'
+import { detailFlow, listFlow } from '@/api/flow'
 import { nowDatePlusDayStr, nowDateStr } from '@/utils/date-time'
 
 export default {
@@ -184,8 +184,9 @@ export default {
         }
       },
       templateList: [],
-      detailTemplateId: 0,
-      flowDetailShow: false
+      flowDatas: [],
+      flowData: {},
+      isFlowDetailShow: false
     }
   },
   mounted() {
@@ -232,8 +233,17 @@ export default {
     showFlowDetail(id) {
       console.log('show detail:', id)
       // this.$router.push(`/flow-manager/detail/:${id}`)
-      this.detailTemplateId = id
-      this.flowDetailShow = true
+      // 请求数据
+      detailFlow(id).then((res) => {
+        // console.log(res.data)
+        this.flowDatas = res.data
+        this.flowData = res.data[0].flowData
+        this.isFlowDetailShow = true
+      }).catch((err) => {
+        console.log('查看流程详情出错!', err)
+        this.isFlowDetailShow = false
+        this.$message.error('查看流程详情出错')
+      })
     },
     modifyFlow(id) {
       console.log('modify flow:', id)
@@ -242,7 +252,7 @@ export default {
       console.log('delete flow:', id)
     },
     closeShowFlowDetailDialog() {
-      this.flowDetailShow = false
+      this.isFlowDetailShow = false
     }
   }
 }

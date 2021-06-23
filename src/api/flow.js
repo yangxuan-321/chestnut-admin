@@ -22,3 +22,10 @@ export function listFlow(data) {
     data
   })
 }
+
+export function detailFlow(templateId) {
+  return request({
+    url: `/v1/flow/manager/${templateId}`,
+    method: 'get'
+  })
+}

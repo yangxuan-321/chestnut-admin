@@ -90,7 +90,7 @@ export const asyncRoutes = [
     children: [
       {
         path: '/flow-manager/create',
-        component: () => import('@/views/flow-manager/creative'),
+        component: () => import('@/views/flow-manager/create'),
         meta: { title: '创建流程', icon: 'edit' }
       },
       {
