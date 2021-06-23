@@ -10,6 +10,7 @@
     <CommonProperty
       :node-data="nodeData"
       :lf="lf"
+      :can-operate="canOperate"
       @onClose="handleClose"
     />
   </div>
@@ -26,7 +27,8 @@ export default {
   },
   props: {
     nodeData: Object,
-    lf: Object
+    lf: Object,
+    canOperate: Boolean
   },
   data() {
     return {}

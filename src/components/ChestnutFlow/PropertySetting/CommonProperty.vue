@@ -10,7 +10,7 @@
         </el-select>
         <el-input v-model="formData.script.content" type="textarea" :rows="8" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-if="canOperate">
         <el-button type="primary" @click="onSubmit">保存</el-button>
       </el-form-item>
     </el-form>
@@ -21,7 +21,8 @@ export default {
   name: '',
   props: {
     nodeData: Object,
-    lf: Object || String
+    lf: Object || String,
+    canOperate: Boolean
   },
   data() {
     return {

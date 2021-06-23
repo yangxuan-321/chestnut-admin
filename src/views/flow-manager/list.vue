@@ -1,6 +1,12 @@
 <template>
   <div class="app-container">
-    <el-dialog :visible="isFlowDetailShow" width="90%" style="margin-top: 0px;" @close="closeShowFlowDetailDialog">
+    <el-dialog
+      :visible="isFlowDetailShow"
+      top="10vh"
+      width="80%"
+      style="height: 90%; margin-left: 10vh"
+      @close="closeShowFlowDetailDialog"
+    >
       <FlowDetail :flow-data="flowData" :template-flow-data-list="flowDatas" />
     </el-dialog>
     <div class="filter-container">
@@ -231,7 +237,7 @@ export default {
       return typeof obj === 'string'
     },
     showFlowDetail(id) {
-      console.log('show detail:', id)
+      // console.log('show detail:', id)
       // this.$router.push(`/flow-manager/detail/:${id}`)
       // 请求数据
       detailFlow(id).then((res) => {

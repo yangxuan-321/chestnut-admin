@@ -1,21 +1,7 @@
 <template>
   <div class="logic-flow-view">
-    <!--    <el-select v-model="formData.script.type" placeholder="请选择">-->
-    <!--      <el-option v-for="item in flowDatas." :key="item.value" :value="item.value" :label="item.label" />-->
-    <!--    </el-select>-->
-    <!-- 节点面板 -->
-    <!--    <NodePanel v-if="lf" :lf="lf" :node-list="nodeList" />-->
     <!-- 画布 -->
     <div id="LF-view" />
-    <!-- 用户节点自定义操作面板 -->
-    <AddPanel
-      v-if="showAddPanel"
-      class="add-panel"
-      :style="addPanelStyle"
-      :lf="lf"
-      :node-data="addClickNode"
-      @addNodeFinish="hideAddPanel"
-    />
     <!-- 属性面板 -->
     <el-drawer
       title="设置节点属性"
@@ -28,45 +14,37 @@
         v-if="dialogVisible"
         :node-data="clickNode"
         :lf="lf"
+        :can-operate="false"
         @setPropertiesFinish="closeDialog"
       />
     </el-drawer>
-    <!-- 数据查看面板 -->
-    <el-dialog
-      title="数据"
-      :visible.sync="dataVisible"
-      width="50%"
-    >
-      <DataDialog :graph-data="graphData" />
-    </el-dialog>
   </div>
 </template>
-
 <script>
-/* eslint-disable */
-import NodePanel from "@/components/ChestnutFlow/LFComponents/NodePanel";
-import AddPanel from "@/components/ChestnutFlow/LFComponents/AddPanel";
-import Control from "@/components/ChestnutFlow/LFComponents/Control";
-import PropertyDialog from "@/components/ChestnutFlow/PropertySetting/PropertyDialog";
-import DataDialog from "@/components/ChestnutFlow/LFComponents/DataDialog";
-import {nodeList} from "@/views/flow-manager/config";
-import LogicFlow from "@logicflow/core";
-import {Menu, Snapshot} from "@logicflow/extension";
+import LogicFlow from '@logicflow/core'
+// const LogicFlow = window.LogicFlow
+import { Menu, Snapshot } from '@logicflow/extension'
+import '@logicflow/core/dist/style/index.css'
+import '@logicflow/extension/lib/style/index.css'
+import PropertyDialog from '../../../components/ChestnutFlow/PropertySetting/PropertyDialog'
+import { nodeList } from '../config'
+
 import {
-  registerEnd,
-  registerPolyline,
   registerStart,
   registerSwitch,
+  registerEnd,
+  registerPolyline,
   registerTask
-} from "@/components/ChestnutFlow/registerNode";
-const demoData = require('../data/data2.json')
+} from '../../../components/ChestnutFlow/registerNode'
+// const demoData = require('../data/data.json')
+// const demoData2 = require('./data/data2.json')
+
 export default {
   name: 'FlowDetail',
-  components: { NodePanel, AddPanel, Control, PropertyDialog, DataDialog },
+  components: { PropertyDialog },
   props: ['templateFlowDataList', 'flowData'],
   data() {
     return {
-      loading: false,
       lf: null,
       showAddPanel: false,
       addPanelStyle: {
@@ -86,7 +64,8 @@ export default {
         grid: {
           size: 10,
           // visible: false
-          visible: true
+          visible: true,
+          type: 'mesh'
         },
         keyboard: {
           enabled: true
@@ -118,7 +97,7 @@ export default {
       },
       moveData: {},
       nodeList,
-      flowVersion: 'v1.0'
+      saveFlowFormShow: false
     }
   },
   mounted() {
@@ -131,9 +110,11 @@ export default {
       // 使用插件
       LogicFlow.use(Menu)
       LogicFlow.use(Snapshot)
-      const lf = new LogicFlow(
-        { ...this.config, container: document.querySelector('#LF-view') }
-      )
+      const lf = new LogicFlow({
+        ...this.config,
+        container: document.querySelector('#LF-view'),
+        isSilentMode: true
+      })
       this.lf = lf
       // 设置主题
       lf.setTheme({
@@ -175,18 +156,15 @@ export default {
     // 自定义
     $_registerNode() {
       registerStart(this.lf)
-      // registerUser(this.lf)
       registerSwitch(this.lf) // 注册该自定义的组件，基本就可以将该组件 拖拽到画布上
       registerEnd(this.lf)
-      // registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
-      // registerDownload(this.lf)
       registerPolyline(this.lf)
       registerTask(this.lf)
       this.$_render()
     },
     $_render() {
-      // console.log('xxxxxxxxxxx', this.flowData)
-      this.lf.render(demoData)
+      console.log('xxx', this.flowData)
+      this.lf.render(JSON.parse(this.flowData))
       this.$_LfEvent()
     },
     $_getData() {
@@ -257,7 +235,24 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
+<style>
+#LF-view{
+  /*width: calc(100% - 100px);*/
+  width: calc(100% - 20px);
+  /*height: 80%;*/
+  height: 100%;
+  outline: none;
+  /*margin-left: 50px;*/
+  margin-left: 10px;
+}
+.logic-flow-view {
+  height: 100vh;
+  position: relative;
+}
+.el-drawer__body {
+  height: 80%;
+  overflow: auto;
+  margin-top: -30px;
+  z-index: 3;
+}
 </style>

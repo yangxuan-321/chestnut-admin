@@ -38,6 +38,7 @@
         v-if="dialogVisible"
         :node-data="clickNode"
         :lf="lf"
+        :can-operate="true"
         @setPropertiesFinish="closeDialog"
       />
     </el-drawer>
@@ -102,7 +103,8 @@ export default {
         grid: {
           size: 10,
           // visible: false
-          visible: true
+          visible: true,
+          type: 'mesh'
         },
         keyboard: {
           enabled: true

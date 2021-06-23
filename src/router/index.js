@@ -97,13 +97,13 @@ export const asyncRoutes = [
         path: '/flow-manager/list',
         component: () => import('@/views/flow-manager/list'),
         meta: { title: '流程列表', icon: 'list' }
+      },
+      {
+        path: '/flow-manager/detail/:id',
+        component: () => import('@/views/flow-manager/components/FlowDetail'),
+        hidden: true,
+        meta: { title: '详细流程', icon: 'edit' }
       }
-      // ,{
-      //   path: '/flow-manager/detail/:id',
-      //   component: () => import('@/views/flow-manager/components/FlowDetail'),
-      //   hidden: true,
-      //   meta: { title: '详细流程', icon: 'edit' }
-      // }
     ]
   },
   { path: '*', redirect: '/404', hidden: true }

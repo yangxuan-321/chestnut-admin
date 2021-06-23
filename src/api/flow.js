@@ -8,9 +8,9 @@ export function flowManagerSave(data) {
   })
 }
 
-export function validateFlowName(flowName) {
+export function validateFlowNameAndVer(flowName, flowVersion) {
   return request({
-    url: '/v1/flow/manager/validateFlowName/' + flowName,
+    url: `/v1/flow/manager/validateFlowName/${flowName}/${flowVersion}`,
     method: 'get'
   })
 }

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {flowManagerSave, validateFlowName} from "@/api/flow";
+import {flowManagerSave, validateFlowNameAndVer} from "@/api/flow";
 
 const actions = {
   // save flow
@@ -14,10 +14,10 @@ const actions = {
       })
     })
   },
-  validateFlowName({ commit }, flowName) {
+  validateFlowNameAndVer({ commit }, {flowName, flowVersion}) {
     // console.log("保存流程请求提交...", flow)
     return new Promise((resolve, reject) => {
-      validateFlowName(flowName).then(response => {
+      validateFlowNameAndVer(flowName, flowVersion).then(response => {
         const { data } = response
         resolve(response)
       }).catch(error => {
