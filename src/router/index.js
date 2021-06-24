@@ -46,12 +46,25 @@ export const constantRoutes = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        component: () => import('@/views/index/index'),
+        name: '主页',
+        meta: { title: '主页', icon: 'dashboard', affix: true }
       }
     ]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: () => import('@/views/dashboard/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+  //     }
+  //   ]
+  // }
 ]
 
 // 将我们自己定义的组件放在asyncRoutes当中
@@ -64,17 +77,20 @@ export const asyncRoutes = [
     meta: { title: '用户管理', icon: 'user', roles: ['admin'] },
     children: [
       {
+        name: '新增用户',
         path: '/user-manager/create',
         component: () => import('@/views/user-manager/create'),
         meta: { title: '新增用户', icon: 'edit' }
       },
       {
+        name: '编辑用户',
         path: '/user-manager/edit',
         component: () => import('@/views/user-manager/edit'),
         hidden: true,
         meta: { title: '编辑用户', icon: 'list' }
       },
       {
+        name: '用户列表',
         path: '/user-manager/list',
         component: () => import('@/views/user-manager/list'),
         meta: { title: '用户列表', icon: 'list' }
@@ -89,11 +105,13 @@ export const asyncRoutes = [
     meta: { title: '流程管理', icon: 'guide' },
     children: [
       {
+        name: '创建流程',
         path: '/flow-manager/create',
         component: () => import('@/views/flow-manager/create'),
         meta: { title: '创建流程', icon: 'edit' }
       },
       {
+        name: '流程列表',
         path: '/flow-manager/list',
         component: () => import('@/views/flow-manager/list'),
         meta: { title: '流程列表', icon: 'list' }

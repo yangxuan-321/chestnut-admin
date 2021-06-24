@@ -7,7 +7,7 @@
       style="height: 90%; margin-left: 10vh"
       @close="closeShowFlowDetailDialog"
     >
-      <FlowDetail :flow-data="flowData" :template-flow-data-list="flowDatas" />
+      <FlowDetail :flow-data="flowData" />
     </el-dialog>
     <div class="filter-container">
       <el-input
@@ -85,18 +85,35 @@
         width="399"
         align="center"
       >
-        <template slot-scope="{row: {name}}">
-          <span>{{ name }}</span>
+        <template slot-scope="{row: {flowName}}">
+          <span>{{ flowName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        v-if="listQuery.showVersion"
         label="流程版本"
         width="150"
         align="center"
       >
-        <template slot-scope="{row: {name}}">
-          <span>{{ name }}</span>
+        <template slot-scope="{row: {flowVersion}}">
+          <span>{{ flowVersion }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="状态"
+        width="150"
+        align="center"
+      >
+        <template slot-scope="{row: {status}}">
+          <span>{{ flowStats2Str(status) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="流程版本"
+        width="150"
+        align="center"
+      >
+        <template slot-scope="{row: {flowVersion}}">
+          <span>{{ flowVersion }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -137,7 +154,7 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="320" fixed="right">
         <template slot-scope="{row}">
-          <el-button type="text" @click="showFlowDetail(row.id)">查看详情</el-button>
+          <el-button type="text" @click="showFlowDetail(row.templateId, row.flowVersion)">查看详情</el-button>
           <el-button type="info" @click="modifyFlow(row.id)">修改</el-button>
           <el-button type="info" @click="deleteFlow(row.id)">删除</el-button>
         </template>
@@ -154,6 +171,7 @@ import waves from '../../directive/waves/index'
 import FlowDetail from './components/FlowDetail'
 import { detailFlow, listFlow } from '@/api/flow'
 import { nowDatePlusDayStr, nowDateStr } from '@/utils/date-time'
+import { MessageBox } from 'element-ui'
 
 export default {
   components: { Pagination, FlowDetail },
@@ -165,7 +183,6 @@ export default {
       listLoading: false,
       listQuery: {
         flowName: '',
-        showVersion: false,
         startDate: nowDatePlusDayStr(-7),
         endDate: nowDateStr()
       },
@@ -190,7 +207,6 @@ export default {
         }
       },
       templateList: [],
-      flowDatas: [],
       flowData: {},
       isFlowDetailShow: false
     }
@@ -236,14 +252,13 @@ export default {
     isStringType(obj) {
       return typeof obj === 'string'
     },
-    showFlowDetail(id) {
+    showFlowDetail(templateId, flowVersion) {
       // console.log('show detail:', id)
       // this.$router.push(`/flow-manager/detail/:${id}`)
       // 请求数据
-      detailFlow(id).then((res) => {
+      detailFlow(templateId, flowVersion).then((res) => {
         // console.log(res.data)
-        this.flowDatas = res.data
-        this.flowData = res.data[0].flowData
+        this.flowData = JSON.parse(res.data.flowData)
         this.isFlowDetailShow = true
       }).catch((err) => {
         console.log('查看流程详情出错!', err)
@@ -253,12 +268,22 @@ export default {
     },
     modifyFlow(id) {
       console.log('modify flow:', id)
+      MessageBox.alert('功能暂未实现', '公告提示')
     },
     deleteFlow(id) {
       console.log('delete flow:', id)
     },
     closeShowFlowDetailDialog() {
       this.isFlowDetailShow = false
+    },
+    /* eslint-disable */
+    flowStats2Str(status) {
+      const ms = new Map()
+      ms.set(0, '正常')
+      ms.set(1, '暂不可用')
+      ms.set(2, '删除')
+      const str = ms.get(status)
+      return str ? str : '未知'
     }
   }
 }

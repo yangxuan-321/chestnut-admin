@@ -22,7 +22,6 @@
 </template>
 <script>
 import LogicFlow from '@logicflow/core'
-// const LogicFlow = window.LogicFlow
 import { Menu, Snapshot } from '@logicflow/extension'
 import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'
@@ -36,8 +35,6 @@ import {
   registerPolyline,
   registerTask
 } from '../../../components/ChestnutFlow/registerNode'
-// const demoData = require('../data/data.json')
-// const demoData2 = require('./data/data2.json')
 
 export default {
   name: 'FlowDetail',
@@ -98,6 +95,13 @@ export default {
       moveData: {},
       nodeList,
       saveFlowFormShow: false
+    }
+  },
+  watch: {
+    flowData(newValue, oldValue) {
+      console.log('watch...', newValue)
+      // `this` 指向 vm 实例
+      this.lf.render(newValue)
     }
   },
   mounted() {
@@ -163,8 +167,8 @@ export default {
       this.$_render()
     },
     $_render() {
-      console.log('xxx', this.flowData)
-      this.lf.render(JSON.parse(this.flowData))
+      // console.log('xxx', this.flowData)
+      this.lf.render(this.flowData)
       this.$_LfEvent()
     },
     $_getData() {

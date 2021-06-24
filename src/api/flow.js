@@ -10,7 +10,8 @@ export function flowManagerSave(data) {
 
 export function validateFlowNameAndVer(flowName, flowVersion) {
   return request({
-    url: `/v1/flow/manager/validateFlowName/${flowName}/${flowVersion}`,
+    url: `/v1/flow/manager/validateFlowNameAndVer/${flowName}/${flowVersion}`,
+    // url: `/v1/flow/manager/detail/123/123`,
     method: 'get'
   })
 }
@@ -23,9 +24,9 @@ export function listFlow(data) {
   })
 }
 
-export function detailFlow(templateId) {
+export function detailFlow(templateId, flowVersion) {
   return request({
-    url: `/v1/flow/manager/${templateId}`,
+    url: `/v1/flow/manager/detail/${templateId}/${flowVersion}`,
     method: 'get'
   })
 }
