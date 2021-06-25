@@ -68,15 +68,15 @@ export default function registerWait(lf) {
         }
         super(data, graphModel)
       }
-      getConnectedSourceRules() {
-        const rules = super.getConnectedSourceRules()
-        const notAsTarget = {
-          message: '终止节点不能作为连线的起点',
-          validate: () => false
-        }
-        rules.push(notAsTarget)
-        return rules
-      }
+      // getConnectedSourceRules() {
+      //   const rules = super.getConnectedSourceRules()
+      //   const notAsTarget = {
+      //     message: '终止节点不能作为连线的起点',
+      //     validate: () => false
+      //   }
+      //   rules.push(notAsTarget)
+      //   return rules
+      // }
     }
     return {
       view: EndNode,

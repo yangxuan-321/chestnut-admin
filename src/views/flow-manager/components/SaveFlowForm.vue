@@ -32,7 +32,10 @@ export default {
       }
     }
     const validateFlowVersion = (rule, value, callback) => {
-      if (value.length === 0) {
+
+      if (this.flowForm.flowName.length === 0) {
+        callback(new Error('请先输入正确流程名称'))
+      } else if (value.length === 0) {
         callback(new Error('请输入正确的版本号'))
       } else {
         this.$store.dispatch(
@@ -91,7 +94,7 @@ export default {
       this.loading = false
       this.$emit('flowFormSubmit')
       this.flowForm.flowName = ''
-      this.flowForm.flowVersion = ''
+      this.flowForm.flowVersion = 'v1.0'
     },
     onSubmitFail(res) {
       // this.$emit('flowFormSubmit')
