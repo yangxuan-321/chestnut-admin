@@ -5,30 +5,25 @@ export const nodeList = [
     class: 'node-start'
   },
   {
-    text: '基础节点',
-    type: 'rect',
-    class: 'node-task'
+    text: '人工节点',
+    type: 'user',
+    class: 'node-user'
   },
-  // {
-  //   text: '用户',
-  //   type: 'user',
-  //   class: 'node-user'
-  // },
+  {
+    text: '自动节点',
+    type: 'auto',
+    class: 'node-auto'
+  },
   {
     text: '判断',
     type: 'switch',
     class: 'node-switch'
   },
-  // {
-  //   text: '推送',
-  //   type: 'push',
-  //   class: 'node-push'
-  // },
-  // {
-  //   text: '位置',
-  //   type: 'download',
-  //   class: 'node-download'
-  // },
+  {
+    text: '等待',
+    type: 'wait',
+    class: 'node-wait'
+  },
   {
     text: '结束',
     type: 'end',

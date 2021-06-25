@@ -17,7 +17,7 @@
     },
     {
       "id" : "dacda6b6-48d3-4dff-911d-287704eb23d8",
-      "type" : "rect",
+      "type" : "user",
       "x" : 360,
       "y" : 240,
       "properties" : {
@@ -58,7 +58,7 @@
     },
     {
       "id" : "26e98118-9be5-4d3c-8f8f-f1c738f35fba",
-      "type" : "rect",
+      "type" : "user",
       "x" : 730,
       "y" : 120,
       "properties" : {
@@ -76,7 +76,7 @@
     },
     {
       "id" : "ae1df227-5163-4af7-940d-749915c34faf",
-      "type" : "rect",
+      "type" : "user",
       "x" : 730,
       "y" : 240,
       "properties" : {
@@ -94,7 +94,7 @@
     },
     {
       "id" : "6d793405-ef92-45a2-91f8-208dfb6ffd6c",
-      "type" : "rect",
+      "type" : "user",
       "x" : 730,
       "y" : 360,
       "properties" : {
@@ -112,7 +112,7 @@
     },
     {
       "id" : "60ad667f-b465-44d0-a65c-3183208f4015",
-      "type" : "rect",
+      "type" : "user",
       "x" : 940,
       "y" : 240,
       "properties" : {

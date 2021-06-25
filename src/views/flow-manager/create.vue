@@ -67,13 +67,12 @@ import { nodeList } from './config'
 
 import {
   registerStart,
-  // registerUser,
+  registerUser,
   registerSwitch,
   registerEnd,
-  // registerPush,
-  // registerDownload,
+  registerAuto,
   registerPolyline,
-  registerTask
+  registerWait
 } from '../../components/ChestnutFlow/registerNode'
 import SaveFlowForm from './components/SaveFlowForm'
 const demoData = require('./data/data.json')
@@ -156,7 +155,7 @@ export default {
       // 设置主题
       lf.setTheme({
         circle: {
-          r: 20,
+          r: 30,
           stroke: '#000000',
           outlineColor: '#88f',
           strokeWidth: 1
@@ -193,13 +192,12 @@ export default {
     // 自定义
     $_registerNode() {
       registerStart(this.lf)
-      // registerUser(this.lf)
+      registerUser(this.lf)
       registerSwitch(this.lf) // 注册该自定义的组件，基本就可以将该组件 拖拽到画布上
       registerEnd(this.lf)
-      // registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
-      // registerDownload(this.lf)
+      registerWait(this.lf)
+      registerAuto(this.lf)
       registerPolyline(this.lf)
-      registerTask(this.lf)
       this.$_render()
     },
     $_render() {

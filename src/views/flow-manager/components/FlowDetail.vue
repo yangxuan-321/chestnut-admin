@@ -33,7 +33,7 @@ import {
   registerSwitch,
   registerEnd,
   registerPolyline,
-  registerTask
+  registerUser
 } from '../../../components/ChestnutFlow/registerNode'
 
 export default {
@@ -163,7 +163,7 @@ export default {
       registerSwitch(this.lf) // 注册该自定义的组件，基本就可以将该组件 拖拽到画布上
       registerEnd(this.lf)
       registerPolyline(this.lf)
-      registerTask(this.lf)
+      registerUser(this.lf)
       this.$_render()
     },
     $_render() {
