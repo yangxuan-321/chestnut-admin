@@ -90,6 +90,15 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="流程uuid"
+        width="399"
+        align="center"
+      >
+        <template slot-scope="{row: {flowUuid}}">
+          <span>{{ flowUuid }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="流程版本"
         width="150"
         align="center"

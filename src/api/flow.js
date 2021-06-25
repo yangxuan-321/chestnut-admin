@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function flowManagerSave(data) {
   return request({
-    url: '/v1/flow/manager',
+    url: '/v1/back/flow/manager',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function flowManagerSave(data) {
 
 export function validateFlowNameAndVer(flowName, flowVersion) {
   return request({
-    url: `/v1/flow/manager/validateFlowNameAndVer/${flowName}/${flowVersion}`,
+    url: `/v1/back/flow/manager/validateFlowNameAndVer/${flowName}/${flowVersion}`,
     // url: `/v1/flow/manager/detail/123/123`,
     method: 'get'
   })
@@ -18,7 +18,7 @@ export function validateFlowNameAndVer(flowName, flowVersion) {
 
 export function listFlow(data) {
   return request({
-    url: '/v1/flow/manager/list',
+    url: '/v1/back/flow/manager/list',
     method: 'post',
     data
   })
@@ -26,7 +26,7 @@ export function listFlow(data) {
 
 export function detailFlow(templateId, flowVersion) {
   return request({
-    url: `/v1/flow/manager/detail/${templateId}/${flowVersion}`,
+    url: `/v1/back/flow/manager/detail/${templateId}/${flowVersion}`,
     method: 'get'
   })
 }

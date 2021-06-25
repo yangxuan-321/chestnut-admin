@@ -7,8 +7,8 @@
       <!-- <el-button type="plain" size="small" @click="$_zoomReset">大小适应</el-button>-->
       <!-- <el-button type="plain" size="small" @click="$_translateRest">定位还原</el-button>-->
       <!-- <el-button type="plain" size="small" @click="$_reset">还原(大小&定位)</el-button>-->
-      <el-button type="plain" size="small" :disabled="undoDisable" @click="$_undo">重做(ctrl+z)</el-button>
-      <el-button type="plain" size="small" :disabled="redoDisable" @click="$_redo">撤销(ctrl+y)</el-button>
+      <el-button type="plain" size="small" :disabled="undoDisable" @click="$_undo">撤销(ctrl+z)</el-button>
+      <el-button type="plain" size="small" :disabled="redoDisable" @click="$_redo">重做(ctrl+y)</el-button>
       <el-button type="plain" size="small" @click="$_download">下载图片</el-button>
       <el-button type="plain" size="small" round @click="$_catData">查看数据</el-button>
       <!-- <el-button v-if="catTurboData" type="plain" size="small" @click="$_catTurboData">查看turbo数据</el-button>-->
