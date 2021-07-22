@@ -117,15 +117,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="流程版本"
-        width="150"
-        align="center"
-      >
-        <template slot-scope="{row: {flowVersion}}">
-          <span>{{ flowVersion }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
         label="创建者"
         width="200"
         align="center"
