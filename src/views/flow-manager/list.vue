@@ -278,7 +278,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch(
-          'flow/manager/delete',
+          'flow/flowManagerDelete',
           flowId
         ).then(res => { // 成功
           this.$message.error('流程删除出错' + res)

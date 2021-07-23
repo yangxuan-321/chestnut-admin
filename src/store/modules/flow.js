@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {flowManagerSave, validateFlowNameAndVer} from "@/api/flow";
+import { flowManagerDelete, flowManagerSave, validateFlowNameAndVer } from '@/api/flow'
 
 const actions = {
   // save flow
