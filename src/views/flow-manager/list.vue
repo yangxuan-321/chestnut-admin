@@ -279,9 +279,10 @@ export default {
       }).then(() => {
         this.$store.dispatch(
           'flow/flowManagerDelete',
-          flowId
+          { flowId: flowId }
         ).then(res => { // 成功
-          this.$message.error('流程删除出错' + res)
+          this.$message.success(res.message || '删除成功')
+          this.handleFilter()
         }).catch(res =>
           // 失败
           this.$message.error('流程删除出错')
