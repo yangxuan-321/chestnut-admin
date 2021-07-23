@@ -270,8 +270,23 @@ export default {
       console.log('modify flow:', id)
       MessageBox.alert('功能暂未实现', '公告提示')
     },
-    deleteFlow(id) {
-      console.log('delete flow:', id)
+    deleteFlow(flowId) {
+      // console.log('delete flow:', id)
+      MessageBox.confirm('是否确定删除', '流程删除', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch(
+          'flow/manager/delete',
+          flowId
+        ).then(res => { // 成功
+          this.$message.error('流程删除出错' + res)
+        }).catch(res =>
+          // 失败
+          this.$message.error('流程删除出错')
+        )
+      })
     },
     closeShowFlowDetailDialog() {
       this.isFlowDetailShow = false

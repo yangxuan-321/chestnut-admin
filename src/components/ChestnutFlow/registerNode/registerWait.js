@@ -64,7 +64,7 @@ export default function registerWait(lf) {
         data.text = {
           value: (data.text && data.text.value) || '',
           x: data.x,
-          y: data.y + 35
+          y: data.y + 47
         }
         super(data, graphModel)
       }

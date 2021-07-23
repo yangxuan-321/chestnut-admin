@@ -24,6 +24,17 @@ const actions = {
         reject(error)
       })
     })
+  },
+  flowManagerDelete({ commit }, {flowId}) {
+    // console.log("保存流程请求提交...", flow)
+    return new Promise((resolve, reject) => {
+      flowManagerDelete(flowId).then(response => {
+        const { data } = response
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 

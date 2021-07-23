@@ -67,7 +67,7 @@ export default function registerSwitch(lf) {
         data.text = {
           value: (data.text && data.text.value) || '',
           x: data.x,
-          y: data.y + 50
+          y: data.y + 48
         }
         super(data, graphModel)
         const length = 35

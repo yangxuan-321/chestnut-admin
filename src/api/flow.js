@@ -30,3 +30,10 @@ export function detailFlow(templateId, flowVersion) {
     method: 'get'
   })
 }
+
+export function flowManagerDelete(flowId) {
+  return request({
+    url: `/v1/back/flow/manager/delete/${flowId}`,
+    method: 'delete'
+  })
+}
